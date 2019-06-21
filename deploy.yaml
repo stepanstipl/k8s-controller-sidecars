@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: k8s-controller-sidecars
+  namespace: kube-system
+  labels:
+    app: k8s-controller-sidecars
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-controller-sidecars
+  template:
+    metadata:
+      labels:
+        app: k8s-controller-sidecars
+    spec:
+      serviceAccountName: k8s-controller-sidecars
+      containers:
+      - image: docker.io/stepanstipl/k8s-controller-sidecars:dev
+        name: controller
+      restartPolicy: Always
